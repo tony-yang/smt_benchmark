@@ -1,0 +1,17 @@
+Initialize the analyzer = {'for': [], '=>': [], 'exists': [], 'or': [], 'forall': [], 'ite': [], 'not': [], 'general': [], '!': [], 'and': [], 'let': [], 'distinct': [], 'xor': []}
+
+Keyword breakdown in the benchmark
+0 smt2 files contain keyword "for"
+59 smt2 files contain keyword "=>"
+0 smt2 files contain keyword "exists"
+1264 smt2 files contain keyword "or"
+0 smt2 files contain keyword "forall"
+3635 smt2 files contain keyword "ite"
+1788 smt2 files contain keyword "not"
+398 smt2 files contain keyword "general"
+0 smt2 files contain keyword "!"
+934 smt2 files contain keyword "and"
+0 smt2 files contain keyword "let"
+0 smt2 files contain keyword "distinct"
+0 smt2 files contain keyword "xor"
+Total file = 8078

@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
-import os, re
+import os, re, shutil
 
 cwd = os.getcwd()
 benchmark_dir = os.path.join(cwd, '..', 'benchmark')
+result_dir = os.path.join(cwd, '..', 'analysis')
+selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark')
 
 keywords = [
     'forall',
@@ -24,7 +26,7 @@ benchmark_analyzer = {}
 for i in range(len(keywords)):
     benchmark_analyzer[keywords[i]] = []
 
-summary_file = os.path.join(cwd, 'benchmark_analyzer_summary')
+summary_file = os.path.join(result_dir, 'benchmark_summary')
 summary_fh = open(summary_file, 'w')
 
 print('Initialize the analyzer =', benchmark_analyzer, '\n')
@@ -62,8 +64,8 @@ summary_fh.write('Keyword breakdown in the benchmark\n')
 
 for operator, files in benchmark_analyzer.items():
     operator_file_count = 0
-    output = 'benchmark_analyzer_result_{}'.format(operator)
-    benchmark_result = os.path.join(cwd, output)
+    output = 'benchmark_result_{}'.format(operator)
+    benchmark_result = os.path.join(result_dir, output)
     with open(benchmark_result, 'w') as benchmark_output:
         benchmark_output.write('{}\n'.format(operator))
         for smt_file in files:
@@ -71,6 +73,19 @@ for operator, files in benchmark_analyzer.items():
             benchmark_output.write('    =>> {}\n'.format(smt_file))
     print(operator_file_count, 'smt2 files contain keyword', operator)
     summary_fh.write('{} smt2 files contain keyword "{}"\n'.format(operator_file_count, operator))
+
+    # Copy the benchmark file to the selected_benchmark directory if the operator is "and", "let", or "general"
+    if (operator == 'and' or operator == 'let' or operator == 'general'):
+        for smt_file in files:
+            target_filename = smt_file.replace('{}/'.format(benchmark_dir), '').replace('/', '_')
+            target_path = os.path.join(selected_benchmark_dir, target_filename)
+
+            try:
+                shutil.copyfile(smt_file, target_path)
+            except shutil.SameFileError:
+                print("Specify a different file name")
+            except shutil.OSError:
+                print("Destination not writable")
 
 print('Total file =', file_count)
 summary_fh.write('Total file = {}\n'.format(file_count))
