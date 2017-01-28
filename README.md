@@ -19,3 +19,15 @@ This will take several minutes to process over 8000 files
 cd utility
 python benchmark_analyzer.py
 ```
+
+To translate all the selected_benchmark SMT2 scripts to the native peticodiac format
+```
+cd utility
+python smt_translator.py
+```
+
+To run the jSMTLIB-based translation tool on individual SMT2 script
+```
+cd selected_benchmark
+java -jar jSMTLIB.jar --solver peticodiac <SMT2_script.smt2>
+```
