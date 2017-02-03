@@ -1,10 +1,10 @@
-Initialize the analyzer = {'>=': [], '=': [], '<=': [], '>': [], '<': [], 'general': []}
+Initialize the analyzer = {'general': [], '>': [], '>=': [], '<=': [], '=': [], '<': []}
 
 Keyword breakdown in the benchmark
-330 smt2 files contain keyword ">="
-3 smt2 files contain keyword "="
-940 smt2 files contain keyword "<="
+0 smt2 files contain keyword "general"
 1 smt2 files contain keyword ">"
-36 smt2 files contain keyword "<"
-22 smt2 files contain keyword "general"
-Total file = 1332
+0 smt2 files contain keyword ">="
+59 smt2 files contain keyword "<="
+1 smt2 files contain keyword "="
+25 smt2 files contain keyword "<"
+Total file = 86

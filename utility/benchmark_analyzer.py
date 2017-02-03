@@ -10,14 +10,14 @@ selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark')
 keywords = [
     'forall',
     'exists',
-    'distinct',
+    'or',
     'ite',
     'for',
     'xor',
     '=>',
     'not',
     '!',
-    'or', # Anything below here are what we support in the jSMTLIB translator right now
+    'distinct', # Anything below here are what we support in the jSMTLIB translator right now
     'and',
     'let',
     'general'

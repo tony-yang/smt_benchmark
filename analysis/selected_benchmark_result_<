@@ -1,14 +1,4 @@
 <
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_check_401844_int_incompleteness2.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646472_Sz128_2823.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646473_Sz128_2824.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646474_Sz256_6615.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646475_Sz256_6616.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646476_Sz256_6664.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646477_Sz32_455.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646478_Sz32_456.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646479_Sz64_1159.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LIA_fft_646480_Sz64_1160.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2039922_constraints-tms-2-3-light-10.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2039929_constraints-tms-2-3-light-03.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2039983_constraints-cooking23.smt2
@@ -34,4 +24,3 @@
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2040003_constraints-cooking03.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2040004_constraints-cooking02.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_LRA_DTP-Scheduling_2040005_constraints-cooking01.smt2
-    =>> /Users/tony/dev/public/smt_benchmark/utility/../selected_benchmark/QF_RDL_check_407755_bignum_rdl2.smt2
