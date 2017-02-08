@@ -44,12 +44,15 @@ end_time = time.time()
 print('##################')
 print('SMT Solver Summary')
 print('##################')
-print('Total clock time used according to the script: {} seconds'.format(end_time - starting_time))
-print('SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time | Solution')
+print('Total clock time used according to the script: {} seconds\n'.format(end_time - starting_time))
+print('Correct? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time | Solution\n')
 
 for i in range(len(solved_benchmark)):
-    print(solved_benchmark[i])
-    result = '{} | {} | {} | {}'.format(
+    result_correct = 'X' # X = False or not correct
+    if actual_result[solved_benchmark[i]]['status'].strip().lower() == expected_result[solved_benchmark[i]]['status'].strip().lower():
+        result_correct = 'Y'
+    print('{} | {}'.format(result_correct, solved_benchmark[i]))
+    result = '{} | {} | {} | {} | {}'.format(
         expected_result[solved_benchmark[i]]['status'].strip(),
         actual_result[solved_benchmark[i]]['status'].strip(),
         actual_result[solved_benchmark[i]]['cputime'].strip(),
