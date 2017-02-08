@@ -1,7 +1,11 @@
 *.swp
-*.jar
+*.jar*
+peticodiac
 benchmark
 .DS_Store
 selected_benchmark
 benchmark_source
 selected_benchmark_old
+translated_benchmark
+translated_benchmark_old
+benchmark_result/QF_LRA*
