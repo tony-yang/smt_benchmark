@@ -48,13 +48,11 @@ for path, dirs, files in os.walk(benchmark_dir):
 
                 with open(full_path) as wordfile:
                     for line in wordfile:
-                        if '(assert' in line:
-                            keyword1 = '({} '.format(keywords[i])
-                            keyword2 = ' {} '.format(keywords[i])
-                            if keyword1 in line or keyword2 in line:
-                                keyword_found_in_file = 1
-                                benchmark_analyzer[keywords[i]].append(full_path)
-                                break
+                        keyword1 = '({} '.format(keywords[i])
+                        if keyword1 in line:
+                            keyword_found_in_file = 1
+                            benchmark_analyzer[keywords[i]].append(full_path)
+                            break
 
                 if keyword_found_in_file == 1:
                     break

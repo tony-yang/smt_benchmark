@@ -548,6 +548,16 @@ or
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/LassoRanker/Ultimate/831272/OpposedDisjuncts.bpl_Iteration1_Lasso_3-pieceTemplate.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/LassoRanker/Ultimate/831273/Braverman-2006CAV-Ex1-int.bpl_Iteration1_Loop_7-phaseTemplate.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/LassoRanker/Ultimate/831274/Cairo2.bpl_Iteration1_Lasso_7-phaseTemplate.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892132/shewanella-compact2b.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892133/ecoliMILPglycerolYices3-90000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892135/ecoliMILPglycerolYices3-300000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892136/ecoliMILPglycerolYices3-50000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892138/ecoliMILPglycerolYices3-5000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892140/shewanella-compact2.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892143/ecoliMILPglycerolYices3-70000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892145/ecoliMILPglycerolYices3-80000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892147/ecoliMILPglycerolYices3-100000.smt2
+    =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/latendresse/892148/ecoliMILPglycerolYices3-60000.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/meti-tarski/atan/problem/2/weak/892653/atan-problem-2-weak-chunk-0203.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/meti-tarski/atan/problem/2/weak/892654/atan-problem-2-weak-chunk-0200.smt2
     =>> /Users/tony/dev/public/smt_benchmark/utility/../benchmark/QF_LRA/meti-tarski/Chua/1/IL/U/892290/Chua-1-IL-U-chunk-0069.smt2
