@@ -3,9 +3,6 @@
 peticodiac
 benchmark
 .DS_Store
-selected_benchmark
-benchmark_source
-selected_benchmark_old
-translated_benchmark
-translated_benchmark_old
+selected_benchmark*
+translated_benchmark*
 benchmark_result/QF_LRA*
