@@ -6,7 +6,7 @@ cwd = os.getcwd()
 target_operator = 'and'
 translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark', target_operator)
 benchmark_result_dir = os.path.join(cwd, '..', 'benchmark_result', target_operator)
-benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary')
+benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary_cpu_lazy')
 
 if not os.path.exists(benchmark_result_dir):
     os.makedirs(benchmark_result_dir, exist_ok=True)
@@ -30,7 +30,7 @@ for path, dirs, files in os.walk(translated_benchmark_dir):
             output_path = os.path.join(benchmark_result_dir, '{}.result'.format(smt_file))
 
             file_start_time = time.time()
-            os.system('{} --file {} --solver {} > {}'.format(smt_solver, file_path, 1, output_path))
+            os.system('{} --file {} --solver {} > {}'.format(smt_solver, file_path, 2, output_path))
             file_end_time = time.time()
 
             # file_solution = os.popen("grep -i 'x0=' " + output_path + " | awk '{print $0}'").read()
@@ -49,9 +49,9 @@ end_time = time.time()
 # Analyze the correctness of the result
 
 output_text = '''
-##################
-SMT Solver Summary
-##################
+###########################
+SMT Solver CPU Lazy Summary
+###########################
 \nCorrect? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time\n
 '''
 
