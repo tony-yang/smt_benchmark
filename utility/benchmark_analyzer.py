@@ -10,14 +10,14 @@ selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark')
 keywords = [
     'forall',
     'exists',
-    'or',
-    'ite',
+    'distinct',
+    '=>',
     'for',
     'xor',
-    '=>',
+    'ite',
     'not',
     '!',
-    'distinct', # Anything below here are what we support in the jSMTLIB translator right now
+    'or', # Anything below here are what we support in the jSMTLIB translator right now
     'and',
     'let',
     'general'
@@ -73,10 +73,13 @@ for operator, files in benchmark_analyzer.items():
     summary_fh.write('{} smt2 files contain keyword "{}"\n'.format(operator_file_count, operator))
 
     # Copy the benchmark file to the selected_benchmark directory if the operator is "and", "let", or "general"
-    if (operator == 'and' or operator == 'let' or operator == 'general'):
+    if (operator == 'and' or operator == 'let' or operator == 'or'):
         for smt_file in files:
             target_filename = smt_file.replace('{}/'.format(benchmark_dir), '').replace('/', '_')
-            target_path = os.path.join(selected_benchmark_dir, target_filename)
+            target_directory = os.path.join(selected_benchmark_dir, operator)
+            if not os.path.exists(target_directory):
+                os.makedirs(target_directory, exist_ok=True)
+            target_path = os.path.join(selected_benchmark_dir, operator, target_filename)
 
             try:
                 shutil.copyfile(smt_file, target_path)
