@@ -27,6 +27,13 @@ apt-get install oracle-java8-installer
 export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
 ```
 
+- Apache Ant
+```
+apt-get update
+apt-get upgrade
+apt-get install -y ant
+```
+
 - Python 3
 ```
 apt-get update
@@ -35,6 +42,7 @@ apt-get install -y python3
 # Optional, if the path /usr/bin/python is not an executable
 ln -s /usr/bin/python3 /usr/bin/python
 ```
+
 - cmake
 ```
 apt-get update
