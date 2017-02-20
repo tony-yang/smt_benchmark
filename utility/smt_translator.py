@@ -3,8 +3,13 @@
 import os
 
 cwd = os.getcwd()
-selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark')
-translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark')
+target_operator = 'and'
+selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark', target_operator)
+translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark', target_operator)
+
+if not os.path.exists(translated_benchmark_dir):
+    os.makedirs(translated_benchmark_dir, exist_ok=True)
+
 utility_dir = cwd
 translator_jar = os.path.join(utility_dir, 'jSMTLIB.jar')
 

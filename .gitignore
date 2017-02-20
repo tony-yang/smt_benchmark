@@ -6,3 +6,4 @@ benchmark
 selected_benchmark*
 translated_benchmark*
 benchmark_result/QF_LRA*
+benchmark_result/*/QF_LRA*

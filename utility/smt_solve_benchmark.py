@@ -3,8 +3,14 @@
 import os, time
 
 cwd = os.getcwd()
-translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark')
-benchmark_result_dir = os.path.join(cwd, '..', 'benchmark_result')
+target_operator = 'and'
+translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark', target_operator)
+benchmark_result_dir = os.path.join(cwd, '..', 'benchmark_result', target_operator)
+benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary')
+
+if not os.path.exists(benchmark_result_dir):
+    os.makedirs(benchmark_result_dir, exist_ok=True)
+
 utility_dir = cwd
 smt_solver = os.path.join(utility_dir, 'peticodiac')
 
@@ -42,10 +48,12 @@ end_time = time.time()
 
 # Analyze the correctness of the result
 
-print('##################')
-print('SMT Solver Summary')
-print('##################')
-print('\nCorrect? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time\n')
+output_text = '''
+##################
+SMT Solver Summary
+##################
+\nCorrect? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time\n
+'''
 
 total_benchmark = 0
 correct_benchmark = 0
@@ -72,17 +80,21 @@ for i in range(len(solved_benchmark)):
         result_correct = 'Y'
         correct_benchmark += 1
 
-    print('{} | {}'.format(result_correct, solved_benchmark[i]))
+    output_text += '{} | {}\n'.format(result_correct, solved_benchmark[i])
     result = '{} | {} | {} | {}'.format(
         expected_result[solved_benchmark[i]]['status'].strip(),
         final_assertion_status,
         str(final_assertion_cputime),
         str(actual_result[solved_benchmark[i]]['clocktime']).strip()
     )
-    print(result)
+    output_text += '{}\n'.format(result)
 
-print('\nSummary')
-print('Total benchmark: {}'.format(total_benchmark))
-print('Correctly solved: {}'.format(correct_benchmark))
-print('Total CPU time: {} seconds'.format(total_cputime))
-print('Total clock time according to the script: {} seconds\n'.format(end_time - starting_time))
+output_text += '\nSummary\n'
+output_text += 'Total benchmark: {}\n'.format(total_benchmark)
+output_text += 'Correctly solved: {}\n'.format(correct_benchmark)
+output_text += 'Total CPU time: {} seconds\n'.format(total_cputime)
+output_text += 'Total clock time according to the script: {} seconds\n'.format(end_time - starting_time)
+
+print(output_text)
+summary_writer = open(benchmark_summary, 'w')
+summary_writer.write(output_text)
