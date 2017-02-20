@@ -13,6 +13,36 @@ The development is done and tested under Python 3.0.
 The jar used for translation is built from a fork of the jSMTLIB project: https://github.com/tony-yang/jSMTLIB/tree/localbuild
 
 ## User Guide
+The project contains a one-stop script `run_smt_benchmark.py` that will build individual project component, run the solver against the benchmark, and collect the execution result to the `benchmark_result` directory.
+
+To run this tool, ensure that the environment is properly set up as the following
+- Java JDK 8
+```
+apt-get update
+apt-get upgrade
+apt-get install -y python-software-properties software-properties-common
+add-apt-repository ppa:webupd8team/java
+apt-get update
+apt-get install oracle-java8-installer
+export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
+```
+
+- Python 3
+```
+apt-get update
+apt-get upgrade
+apt-get install -y python3
+# Optional, if the path /usr/bin/python is not an executable
+ln -s /usr/bin/python3 /usr/bin/python
+```
+- cmake
+```
+apt-get update
+apt-get install -y build-essential cmake
+```
+
+
+### Running Individual Tool
 To run the benchmark analyzer, go to the utility directory, and run the Python script.
 This will take several minutes to process over 8000 files
 ```
