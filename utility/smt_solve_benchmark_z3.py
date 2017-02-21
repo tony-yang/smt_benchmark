@@ -30,7 +30,7 @@ for path, dirs, files in os.walk(selected_benchmark_dir):
             output_path = os.path.join(benchmark_result_dir, '{}.result'.format(smt_file))
 
             file_start_time = time.time()
-            os.system('/usr/bin/z3 -smt2 -st {} > {}'.format(file_path, output_path))
+            os.system('/usr/bin/z3 -smt2 -st -T:60 {} > {}'.format(file_path, output_path))
             file_end_time = time.time()
 
             # file_solution = os.popen("grep -i 'x0=' " + output_path + " | awk '{print $0}'").read()
