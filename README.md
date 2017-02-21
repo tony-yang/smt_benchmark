@@ -56,7 +56,7 @@ apt-get update
 apt-get install -y automake autoconf libtool antlr3 libantlr3c-3.2-0 libantlr3c-dev libboost-dev
 ```
 
-Then run `python run_smt_benchmark.py` and profit! The script will take approximately 10 to 20 minutes depending on the hardware spec.
+Then checkout this repo, go to the `utility` directory and run `python run_smt_benchmark.py` and profit! The script will take approximately 10 to 20 minutes depending on the hardware spec.
 
 
 ### Running Individual Tool
