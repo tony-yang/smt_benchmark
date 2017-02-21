@@ -13,9 +13,10 @@ The development is done and tested under Python 3.0.
 The jar used for translation is built from a fork of the jSMTLIB project: https://github.com/tony-yang/jSMTLIB/tree/localbuild
 
 ## User Guide
-The project contains a one-stop script `run_smt_benchmark.py` that will build individual project component, run the solver against the benchmark, and collect the execution result to the `benchmark_result` directory.
+The project contains a one-stop script `run_smt_benchmark.py` that will build individual project component, run the solver against the benchmark, and collect the execution result to the `benchmark_result` directory. Currently, this tool is tested on Ubuntu only.
 
-To run this tool, ensure that the environment is properly set up as the following
+To run the `run_smt_benchmark.py` tool, ensure that the environment is properly set up as the following
+
 - Java JDK 8
 ```
 apt-get update
@@ -49,8 +50,12 @@ apt-get update
 apt-get install -y build-essential cmake
 ```
 
+Then run `python run_smt_benchmark.py` and profit! The script will take approximately 10 to 20 minutes depending on the hardware spec.
+
 
 ### Running Individual Tool
+Alternatively, we can also run individual script to analyze the benchmark, translate SMT2 language into the native peticodiac format, and invoke a specific solver.
+
 To run the benchmark analyzer, go to the utility directory, and run the Python script.
 This will take several minutes to process over 8000 files
 ```
@@ -66,6 +71,15 @@ python smt_translator.py
 
 To run the jSMTLIB-based translation tool on individual SMT2 script
 ```
-cd selected_benchmark
-java -jar jSMTLIB.jar --solver peticodiac <SMT2_script.smt2>
+cd <directory that contains a SMT2 file>
+java -jar <Path to jSMTLIB.jar> --solver peticodiac <SMT2_script.smt2>
+```
+
+To run the solver
+```
+cd utility
+python smt_solve_benchmark_<Solver policy>.py
+
+Example:
+python smt_solve_benchmark_cpu_eager.py
 ```
