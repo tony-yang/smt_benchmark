@@ -38,7 +38,7 @@ os.system('cp ./bin/peticodiac {}'.format(smt_benchmark_utility_dir))
 
 print("##### Building jSMTLIB #####")
 os.chdir(jSMTLIB_dir)
-os.system('git checkout -b recursive-queue origin/recursive-queue')
+os.system('git checkout -b localbuild origin/localbuild')
 os.chdir(jSMTLIB_SMT_dir)
 os.makedirs('bin', exist_ok=True)
 os.system('javac -encoding UTF-8 -d ./bin src/org/smtlib/*.java src/org/smtlib/command/*.java src/org/smtlib/ext/*.java src/org/smtlib/impl/*.java src/org/smtlib/logic/*.java src/org/smtlib/sexpr/*.java src/org/smtlib/solvers/*.java')
