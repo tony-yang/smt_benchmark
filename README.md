@@ -40,14 +40,20 @@ apt-get install -y ant
 apt-get update
 apt-get upgrade
 apt-get install -y python3
-# Optional, if the path /usr/bin/python is not an executable
+# Optional, if the path /usr/bin/python is not an executable and is not linked to to python3
 ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-- cmake
+- CMake
 ```
 apt-get update
 apt-get install -y build-essential cmake
+```
+
+- Library dependency for CVC4
+```
+apt-get update
+apt-get install -y automake autoconf libtool antlr3 libantlr3c-3.2-0 libantlr3c-dev libboost-dev
 ```
 
 Then run `python run_smt_benchmark.py` and profit! The script will take approximately 10 to 20 minutes depending on the hardware spec.

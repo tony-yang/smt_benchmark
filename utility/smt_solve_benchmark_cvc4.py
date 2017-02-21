@@ -6,7 +6,7 @@ cwd = os.getcwd()
 target_operator = 'and'
 selected_benchmark_dir = os.path.join(cwd, '..', 'selected_benchmark', target_operator)
 benchmark_result_dir = os.path.join(cwd, '..', 'benchmark_result', target_operator)
-benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary_z3')
+benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary_cvc4')
 
 if not os.path.exists(benchmark_result_dir):
     os.makedirs(benchmark_result_dir, exist_ok=True)
@@ -30,7 +30,7 @@ for path, dirs, files in os.walk(selected_benchmark_dir):
             output_path = os.path.join(benchmark_result_dir, '{}.result'.format(smt_file))
 
             file_start_time = time.time()
-            os.system('z3 -smt2 -st -T:60 {} > {}'.format(file_path, output_path))
+            os.system('cvc4 --stats {} > {} 2>&1'.format(file_path, output_path))
             file_end_time = time.time()
 
             # file_solution = os.popen("grep -i 'x0=' " + output_path + " | awk '{print $0}'").read()
@@ -38,8 +38,8 @@ for path, dirs, files in os.walk(selected_benchmark_dir):
             if not file_solution:
                 file_solution = 'unsat'
             actual_result[smt_file] = {
-                'status': os.popen("grep -i 'sat' " + output_path + " | awk '{print $1}'").read().strip().split('\n'),
-                'cputime': os.popen("grep -i 'total-time' " + output_path + " | awk '{print $2}'").read().strip()[:-1].split('\n'),
+                'status': os.popen("grep -i 'driver::sat/unsat' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'cputime': os.popen("grep -i 'smt::SmtEngine::processAssertionsTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
                 'clocktime': file_end_time - file_start_time,
                 'solution': file_solution
             }
