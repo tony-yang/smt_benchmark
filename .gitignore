@@ -6,5 +6,4 @@ benchmark
 selected_benchmark/or/*
 selected_benchmark_experiment
 translated_benchmark*
-benchmark_result/QF_LRA*
-benchmark_result/*/QF_LRA*
+benchmark_result
