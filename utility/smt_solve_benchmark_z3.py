@@ -39,7 +39,8 @@ for path, dirs, files in os.walk(selected_benchmark_dir):
                 file_solution = 'unsat'
             actual_result[smt_file] = {
                 'status': os.popen("grep -i 'sat' " + output_path + " | awk '{print $1}'").read().strip().split('\n'),
-                'cputime': os.popen("grep -i 'total-time' " + output_path + " | awk '{print $2}'").read().strip()[:-1].split('\n'),
+                'assertiontime': os.popen("grep -i 'total-time' " + output_path + " | awk '{print $2}'").read().strip()[:-1].split('\n'),
+                'solvetime': os.popen("grep -i 'total-time' " + output_path + " | awk '{print $2}'").read().strip()[:-1].split('\n'),
                 'clocktime': file_end_time - file_start_time,
                 'solution': file_solution
             }
@@ -52,28 +53,34 @@ output_text = '''
 ######################
 SMT Solver Z3 Summary
 ######################
-\nCorrect? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time\n
+\nCorrect? | SMT Benchmark\nSMT Status | Solver Status | Assertion Time | Solve Time | Clock Time\n
 '''
 
 total_benchmark = 0
 correct_benchmark = 0
-total_cputime = 0.0
+total_assertion_time = 0.0
+total_solve_time = 0.0
 
 for i in range(len(solved_benchmark)):
     total_benchmark += 1
     # Processing the actual result status and assertion time since they are in list
     all_assertion_status = actual_result[solved_benchmark[i]]['status']
-    all_assertion_cputime = actual_result[solved_benchmark[i]]['cputime']
+    all_assertion_time = actual_result[solved_benchmark[i]]['assertiontime']
+    all_solve_time = actual_result[solved_benchmark[i]]['solvetime']
 
     final_assertion_status = 'sat'
-    final_assertion_cputime = 0.0
+    final_assertion_time = 0.0
+    final_solve_time = 0.0
     for j in range(len(all_assertion_status)):
         if all_assertion_status[j].strip().lower() != 'sat':
             final_assertion_status = 'unsat'
-    for j in range(len(all_assertion_cputime)):
-        final_assertion_cputime += float(all_assertion_cputime[j].strip())
+    for j in range(len(all_assertion_time)):
+        final_assertion_time += float(all_assertion_time[j].strip())
+    for k in range(len(all_solve_time)):
+        final_solve_time =+ float(all_solve_time[k].strip())
 
-    total_cputime += final_assertion_cputime
+    total_assertion_time += final_assertion_time
+    total_solve_time += final_solve_time
 
     result_correct = 'X' # X = False or not correct
     if final_assertion_status == expected_result[solved_benchmark[i]]['status'].strip().lower():
@@ -81,10 +88,11 @@ for i in range(len(solved_benchmark)):
         correct_benchmark += 1
 
     output_text += '{} | {}\n'.format(result_correct, solved_benchmark[i])
-    result = '{} | {} | {} | {}'.format(
+    result = '{} | {} | {} | {} | {}'.format(
         expected_result[solved_benchmark[i]]['status'].strip(),
         final_assertion_status,
-        str(final_assertion_cputime),
+        str(final_assertion_time),
+        str(final_solve_time)
         str(actual_result[solved_benchmark[i]]['clocktime']).strip()
     )
     output_text += '{}\n'.format(result)
@@ -92,7 +100,8 @@ for i in range(len(solved_benchmark)):
 output_text += '\nSummary\n'
 output_text += 'Total benchmark: {}\n'.format(total_benchmark)
 output_text += 'Correctly solved: {}\n'.format(correct_benchmark)
-output_text += 'Total CPU time: {} seconds\n'.format(total_cputime)
+output_text += 'Total Assertion time: {} seconds\n'.format(total_assertion_time)
+output_text += 'Total Solve time: {} seconds\n'.format(total_solve_time)
 output_text += 'Total clock time according to the script: {} seconds\n'.format(end_time - starting_time)
 
 print(output_text)
