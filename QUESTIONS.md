@@ -18,6 +18,16 @@ This document records questions and problems we encountered during our research 
             - 1st run: we received 729 UNSAT results, and 284 SAT results.
             - 2nd run: we received 724 UNSAT results, and 307 SAT results.
             - 3rd run: We received 746 UNSAT results, and 282 SAT results.
+    - Conclusion: debug the OpenMP section. There might be a race condition in one of the for loop that caused incorrect update of the variable. Experiment results.
+        - // Complete turned on OpenMP
+real    0m5.216s
+user    0m3.328s
+sys     0m0.300s
+
+real    0m5.324s
+user    0m3.608s
+sys     0m0.208s
+
     - Proposed experiment 2: experiment with different GCC flag for floating point calculation.
     - Proposed experiment 3: add validation method to prove the solution generated is actually satisfiable.
     - Conclusion: TBD

@@ -50,7 +50,7 @@ end_time = time.time()
 
 output_text = '''
 ######################
-SMT Solver GPU Summary
+SMT Solver Z3 Summary
 ######################
 \nCorrect? | SMT Benchmark\nSMT Status | Solver Status | CPU Time | Clock Time\n
 '''
