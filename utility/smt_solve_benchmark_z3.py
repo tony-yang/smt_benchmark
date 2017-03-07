@@ -92,7 +92,7 @@ for i in range(len(solved_benchmark)):
         expected_result[solved_benchmark[i]]['status'].strip(),
         final_assertion_status,
         str(final_assertion_time),
-        str(final_solve_time)
+        str(final_solve_time),
         str(actual_result[solved_benchmark[i]]['clocktime']).strip()
     )
     output_text += '{}\n'.format(result)
