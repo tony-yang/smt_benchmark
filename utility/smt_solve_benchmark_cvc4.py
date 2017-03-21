@@ -41,6 +41,12 @@ for path, dirs, files in os.walk(selected_benchmark_dir):
                 'status': os.popen("grep -i 'driver::sat/unsat' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
                 'assertiontime': os.popen("grep -i 'smt::SmtEngine::processAssertionsTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
                 'solvetime': os.popen("grep -i 'smt::SmtEngine::solveTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'cnfconversiontime': os.popen("grep -i 'smt::SmtEngine::cnfConversionTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'definitionExpansionTime': os.popen("grep -i 'smt::SmtEngine::definitionExpansionTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'iteRemovalTime': os.popen("grep -i 'smt::SmtEngine::iteRemovalTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'nonclausalSimplificationTime': os.popen("grep -i 'smt::SmtEngine::nonclausalSimplificationTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'staticLearningTime': os.popen("grep -i 'smt::SmtEngine::staticLearningTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
+                'theoryPreprocessTime': os.popen("grep -i 'smt::SmtEngine::theoryPreprocessTime' " + output_path + " | awk '{print $2}'").read().strip().split('\n'),
                 'clocktime': file_end_time - file_start_time,
                 'solution': file_solution
             }
@@ -60,6 +66,12 @@ total_benchmark = 0
 correct_benchmark = 0
 total_assertion_time = 0.0
 total_solve_time = 0.0
+total_cnfconversiontime = 0.0
+total_definitionExpansionTime = 0.0
+total_iteRemovalTime = 0.0
+total_nonclausalSimplificationTime = 0.0
+total_staticLearningTime = 0.0
+total_theoryPreprocessTime = 0.0
 
 for i in range(len(solved_benchmark)):
     total_benchmark += 1
@@ -67,10 +79,22 @@ for i in range(len(solved_benchmark)):
     all_assertion_status = actual_result[solved_benchmark[i]]['status']
     all_assertion_time = actual_result[solved_benchmark[i]]['assertiontime']
     all_solve_time = actual_result[solved_benchmark[i]]['solvetime']
+    cnfconversiontime = actual_result[solved_benchmark[i]]['cnfconversiontime']
+    definitionExpansionTime = actual_result[solved_benchmark[i]]['definitionExpansionTime']
+    iteRemovalTime = actual_result[solved_benchmark[i]]['iteRemovalTime']
+    nonclausalSimplificationTime = actual_result[solved_benchmark[i]]['nonclausalSimplificationTime']
+    staticLearningTime = actual_result[solved_benchmark[i]]['staticLearningTime']
+    theoryPreprocessTime = actual_result[solved_benchmark[i]]['theoryPreprocessTime']
 
     final_assertion_status = 'sat'
     final_assertion_time = 0.0
     final_solve_time = 0.0
+    final_cnfconversiontime = 0.0
+    final_definitionExpansionTime = 0.0
+    final_iteRemovalTime = 0.0
+    final_nonclausalSimplificationTime = 0.0
+    final_staticLearningTime = 0.0
+    final_theoryPreprocessTime = 0.0
     for j in range(len(all_assertion_status)):
         if all_assertion_status[j].strip().lower() != 'sat':
             final_assertion_status = 'unsat'
@@ -78,9 +102,28 @@ for i in range(len(solved_benchmark)):
         final_assertion_time += float(all_assertion_time[j].strip())
     for k in range(len(all_solve_time)):
         final_solve_time =+ float(all_solve_time[k].strip())
+    for k in range(len(cnfconversiontime)):
+        final_cnfconversiontime =+ float(cnfconversiontime[k].strip())
+    for k in range(len(definitionExpansionTime)):
+        final_definitionExpansionTime =+ float(definitionExpansionTime[k].strip())
+    for k in range(len(iteRemovalTime)):
+        final_iteRemovalTime =+ float(iteRemovalTime[k].strip())
+    for k in range(len(nonclausalSimplificationTime)):
+        final_nonclausalSimplificationTime =+ float(nonclausalSimplificationTime[k].strip())
+    for k in range(len(staticLearningTime)):
+        final_staticLearningTime =+ float(staticLearningTime[k].strip())
+    for k in range(len(theoryPreprocessTime)):
+        final_theoryPreprocessTime =+ float(theoryPreprocessTime[k].strip())
 
     total_assertion_time += final_assertion_time
     total_solve_time += final_solve_time
+    total_cnfconversiontime += final_cnfconversiontime
+    total_definitionExpansionTime += final_definitionExpansionTime
+    total_iteRemovalTime += final_iteRemovalTime
+    total_nonclausalSimplificationTime += final_nonclausalSimplificationTime
+    total_staticLearningTime += final_staticLearningTime
+    total_theoryPreprocessTime += final_theoryPreprocessTime
+
 
     result_correct = 'X' # X = False or not correct
     if final_assertion_status == expected_result[solved_benchmark[i]]['status'].strip().lower():
@@ -102,6 +145,14 @@ output_text += 'Total benchmark: {}\n'.format(total_benchmark)
 output_text += 'Correctly solved: {}\n'.format(correct_benchmark)
 output_text += 'Total Assertion time: {} seconds\n'.format(total_assertion_time)
 output_text += 'Total Solve time: {} seconds\n'.format(total_solve_time)
+
+output_text += 'Total CNF Conversion Time: {} seconds\n'.format(total_cnfconversiontime)
+output_text += 'Total Definition Expansion Time: {} seconds\n'.format(total_definitionExpansionTime)
+output_text += 'Total ITE Removal Time: {} seconds\n'.format(total_iteRemovalTime)
+output_text += 'Total Non-Clausal Simplification Time: {} seconds\n'.format(total_nonclausalSimplificationTime)
+output_text += 'Total Static Learning Time: {} seconds\n'.format(total_staticLearningTime)
+output_text += 'Total Theory Preprocess Time: {} seconds\n'.format(total_theoryPreprocessTime)
+
 output_text += 'Total clock time according to the script: {} seconds\n'.format(end_time - starting_time)
 
 print(output_text)
