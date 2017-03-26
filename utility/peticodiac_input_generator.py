@@ -72,7 +72,7 @@ if __name__ == '__main__':
     if not os.path.exists(generated_benchmark_dir):
         os.makedirs(generated_benchmark_dir, exist_ok=True)
 
-    size = 10
+    size = 1
     bound_index = size
 
     float_output = 'p cnf {} {}'.format(size, size)

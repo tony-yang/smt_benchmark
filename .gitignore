@@ -7,3 +7,4 @@ selected_benchmark/or/*
 selected_benchmark_experiment
 translated_benchmark*
 benchmark_result
+__pycache__
