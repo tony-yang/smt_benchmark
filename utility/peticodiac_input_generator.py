@@ -6,13 +6,13 @@ def random_operand(input_range=100, probability_of_zero=0.5):
     random_zero = random.random()
     if random_zero < probability_of_zero:
         float_operand = 0.0
-        fraction_operand = '0'
+        fraction_operand = '0/1'
     else:
         numerator = random.randint(-input_range * 5, input_range * 5)
         denominator = random.randint(1, input_range)
         float_operand = numerator/denominator
         if (numerator == 0):
-            fraction_operand = '0'
+            fraction_operand = '0/1'
         else:
             fraction_operand = '{}/{}'.format(numerator, denominator)
 
@@ -38,7 +38,8 @@ def generate_bounds(input_range=100, bound_index=1):
     if lower_float_operand < 0:
         final_lower_float_operand = final_lower_fraction_operand = 'NO_BOUND'
         if upper_float_operand < 0:
-            final_upper_float_operand = final_upper_fraction_operand = 'NO_BOUND'
+            final_lower_float_operand = final_lower_fraction_operand = 'NO_EQUATION'
+            final_upper_float_operand = final_upper_fraction_operand = 'NO_EQUATION'
         else:
             final_upper_float_operand = '<=:{}'.format(upper_float_operand)
             final_upper_fraction_operand = '<=:{}'.format(upper_fraction_operand)
@@ -81,6 +82,11 @@ if __name__ == '__main__':
     for row in range(size):
         float_row_output, fraction_row_output = generate_constraint()
         float_bound_output, fraction_bound_output = generate_bounds(bound_index=bound_index)
+        # Re-generate the bound if we got NO_EQUATION
+        # We don't want the lower and upper bound both to be NO_BOUND
+        while float_bound_output.find('NO_EQUATION') > 0:
+            float_bound_output, fraction_bound_output = generate_bounds(bound_index=bound_index)
+
         bound_index += 1
 
         float_output += '\n{}\n{}'.format(float_row_output, float_bound_output)
