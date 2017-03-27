@@ -8,3 +8,4 @@ selected_benchmark_experiment
 translated_benchmark*
 benchmark_result
 __pycache__
+tests/result/*.smt2
