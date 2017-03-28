@@ -6,7 +6,7 @@ def convert_expression_matrix_to_smt2_assert(expression_matrix):
     expression_output = ''
     # We are assuming that there is no equation with both bounds 'NO_BOUND'
     # Our input generator will also ensure that such input will not be generated
-    if (len(expression_matrix) > 1 or (expression_matrix[0][-1] != 'NO_BOUND' and expression_matrix[0][-2] != 'NO_BOUND')):
+    if (len(expression_matrix) > 1 or (expression_matrix[0][-1] != 'NO_BOUND' and expression_matrix[0][-2] != 'NO_BOUND' and expression_matrix[0][-2].split(':')[0] != '=')):
         expression_output += '(and '
 
     for row_index in range(len(expression_matrix)):
@@ -16,23 +16,37 @@ def convert_expression_matrix_to_smt2_assert(expression_matrix):
 
         coefficient_output = ''
         for col_index in range(len(expression_matrix[row_index]) - 2):
-            coefficient = expression_matrix[row_index][col_index].split('/')
-            coefficient_output += '(* (/ {} {}) x{}) '.format(coefficient[0], coefficient[1], col_index)
+            numerator, denominator = expression_matrix[row_index][col_index].split('/')
+            if numerator.startswith('-'):
+                numerator = '(- {})'.format(numerator[1:])
+            coefficient_output += '(* (/ {} {}) x{}) '.format(numerator, denominator, col_index)
 
-        if expression_matrix[row_index][-2] != 'NO_BOUND':
-            bound = expression_matrix[row_index][-2].split(':')[1].split('/')
-            bound_output = '(/ {} {})'.format(bound[0], bound[1])
-            expression_output += '(>= {}{}) '.format(coefficient_output, bound_output)
+        # Both bounds are the same, convert to one equation
+        if expression_matrix[row_index][-2].split(':')[0] == '=' and expression_matrix[row_index][-1].split(':')[0] == '=':
+            bound_numerator, bound_denominator = expression_matrix[row_index][-2].split(':')[1].split('/')
+            if bound_numerator.startswith('-'):
+                bound_numerator = '(- {})'.format(bound_numerator[1:])
+            bound_output = '(/ {} {})'.format(bound_numerator, bound_denominator)
+            expression_output += '(= {}{}) '.format(coefficient_output, bound_output)
+        else:
+            if expression_matrix[row_index][-2] != 'NO_BOUND':
+                lower_bound_numerator, lower_bound_denominator = expression_matrix[row_index][-2].split(':')[1].split('/')
+                if lower_bound_numerator.startswith('-'):
+                    lower_bound_numerator = '(- {})'.format(lower_bound_numerator[1:])
+                bound_output = '(/ {} {})'.format(lower_bound_numerator, lower_bound_denominator)
+                expression_output += '(>= {}{}) '.format(coefficient_output, bound_output)
 
-        if expression_matrix[row_index][-1] != 'NO_BOUND':
-            bound = expression_matrix[row_index][-1].split(':')[1].split('/')
-            bound_output = '(/ {} {})'.format(bound[0], bound[1])
-            expression_output += '(<= {}{}) '.format(coefficient_output, bound_output)
+            if expression_matrix[row_index][-1] != 'NO_BOUND':
+                upper_bound_numerator, upper_bound_denominator = expression_matrix[row_index][-1].split(':')[1].split('/')
+                if upper_bound_numerator.startswith('-'):
+                    upper_bound_numerator = '(- {})'.format(upper_bound_numerator[1:])
+                bound_output = '(/ {} {})'.format(upper_bound_numerator, upper_bound_denominator)
+                expression_output += '(<= {}{}) '.format(coefficient_output, bound_output)
 
         if len(expression_matrix[row_index]) - 2 > 1:
             expression_output = expression_output.strip() + ')' # End (+
 
-    if (len(expression_matrix) > 1 or (expression_matrix[0][-1] != 'NO_BOUND' and expression_matrix[0][-2] != 'NO_BOUND')):
+    if (len(expression_matrix) > 1 or (expression_matrix[0][-1] != 'NO_BOUND' and expression_matrix[0][-2] != 'NO_BOUND' and expression_matrix[0][-2].split(':')[0] != '=')):
         expression_output = expression_output.strip() + ')' # End (and
 
     return expression_output.strip()
