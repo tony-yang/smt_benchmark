@@ -1,0 +1,4 @@
+p cnf 2 1
+c 0/1 16/5
+b 1 NO_BOUND <=:10/4
+eoa

@@ -10,16 +10,25 @@ def convert_expression_matrix_to_smt2_assert(expression_matrix):
         expression_output += '(and '
 
     for row_index in range(len(expression_matrix)):
-        # The last 2 index of the matrix is the lower_bound and upper_bound
-        if len(expression_matrix[row_index]) - 2 > 1:
-            expression_output += '(+ '
-
         coefficient_output = ''
+
+        expression_coefficients = []
         for col_index in range(len(expression_matrix[row_index]) - 2):
             numerator, denominator = expression_matrix[row_index][col_index].split('/')
-            if numerator.startswith('-'):
-                numerator = '(- {})'.format(numerator[1:])
-            coefficient_output += '(* (/ {} {}) x{}) '.format(numerator, denominator, col_index)
+            if int(numerator) != 0:
+                if numerator.startswith('-'):
+                    numerator = '(- {})'.format(numerator[1:])
+                expression_coefficients.append('(* (/ {} {}) x{})'.format(numerator, denominator, col_index))
+
+        # The last 2 index of the matrix is the lower_bound and upper_bound
+        if len(expression_matrix[row_index]) - 2 > 1 and len(expression_coefficients) > 1:
+            coefficient_output += '(+ '
+
+        for coeff_index in range(len(expression_coefficients)):
+            coefficient_output += '{} '.format(expression_coefficients[coeff_index])
+
+        if len(expression_matrix[row_index]) - 2 > 1 and len(expression_coefficients) > 1:
+            coefficient_output = coefficient_output.strip() + ') ' # End (+
 
         # Both bounds are the same, convert to one equation
         if expression_matrix[row_index][-2].split(':')[0] == '=' and expression_matrix[row_index][-1].split(':')[0] == '=':
@@ -42,9 +51,6 @@ def convert_expression_matrix_to_smt2_assert(expression_matrix):
                     upper_bound_numerator = '(- {})'.format(upper_bound_numerator[1:])
                 bound_output = '(/ {} {})'.format(upper_bound_numerator, upper_bound_denominator)
                 expression_output += '(<= {}{}) '.format(coefficient_output, bound_output)
-
-        if len(expression_matrix[row_index]) - 2 > 1:
-            expression_output = expression_output.strip() + ')' # End (+
 
     if (len(expression_matrix) > 1 or (expression_matrix[0][-1] != 'NO_BOUND' and expression_matrix[0][-2] != 'NO_BOUND' and expression_matrix[0][-2].split(':')[0] != '=')):
         expression_output = expression_output.strip() + ')' # End (and
