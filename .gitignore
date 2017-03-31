@@ -4,6 +4,7 @@ peticodiac
 benchmark
 .DS_Store
 selected_benchmark/or/*
+selected_benchmark/generated/*
 selected_benchmark_experiment
 translated_benchmark*
 benchmark_result
