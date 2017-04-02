@@ -22,7 +22,7 @@ starting_time = time.time()
 for path, dirs, files in os.walk(translated_benchmark_dir):
     files.sort()
     for smt_file in files:
-        if (smt_file != '' and smt_file != '.DS_Store' and smt_file != 'jSMTLIB.jar'):
+        if (smt_file != '' and smt_file != '.DS_Store' and smt_file != 'jSMTLIB.jar' and 'fraction' not in smt_file):
             print('Solving {}'.format(smt_file))
             file_path = os.path.join(path, smt_file)
             expected_status = os.popen("grep -i 'status' " + file_path + " | awk '{print $3}'").read().strip()

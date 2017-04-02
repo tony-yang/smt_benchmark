@@ -6,7 +6,7 @@ cwd = os.getcwd()
 target_operator = 'and'
 translated_benchmark_dir = os.path.join(cwd, '..', 'translated_benchmark', target_operator)
 benchmark_result_dir = os.path.join(cwd, '..', 'benchmark_result', target_operator)
-benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary_cpu_eager')
+benchmark_summary = os.path.join(cwd, '..', 'benchmark_result', target_operator, 'benchmark_summary_cpu_lazy')
 
 if not os.path.exists(benchmark_result_dir):
     os.makedirs(benchmark_result_dir, exist_ok=True)
@@ -22,7 +22,7 @@ starting_time = time.time()
 for path, dirs, files in os.walk(translated_benchmark_dir):
     files.sort()
     for smt_file in files:
-        if (smt_file != '' and smt_file != '.DS_Store' and smt_file != 'jSMTLIB.jar'):
+        if (smt_file != '' and smt_file != '.DS_Store' and smt_file != 'jSMTLIB.jar' and 'float' not in smt_file):
             print('Solving {}'.format(smt_file))
             file_path = os.path.join(path, smt_file)
             expected_status = os.popen("grep -i 'status' " + file_path + " | awk '{print $3}'").read().strip()
@@ -30,7 +30,7 @@ for path, dirs, files in os.walk(translated_benchmark_dir):
             output_path = os.path.join(benchmark_result_dir, '{}.result'.format(smt_file))
 
             file_start_time = time.time()
-            os.system('{} --file {} --solver {} > {}'.format(smt_solver, file_path, 1, output_path))
+            os.system('{} --file {} --solver {} > {}'.format(smt_solver, file_path, 2, output_path))
             file_end_time = time.time()
 
             # file_solution = os.popen("grep -i 'x0=' " + output_path + " | awk '{print $0}'").read()
@@ -50,9 +50,9 @@ end_time = time.time()
 # Analyze the correctness of the result
 
 output_text = '''
-############################
-SMT Solver CPU Eager Summary
-############################
+###########################
+SMT Solver CPU Lazy Summary
+###########################
 \nCorrect? | SMT Benchmark\nSMT Status | Solver Status | Assertion Time | Solve Time | Clock Time\n
 '''
 
@@ -100,7 +100,7 @@ for i in range(len(solved_benchmark)):
 output_text += '\nSummary\n'
 output_text += 'Total benchmark: {}\n'.format(total_benchmark)
 output_text += 'Correctly solved: {}\n'.format(correct_benchmark)
-output_text += 'Total CPU time: {} seconds\n'.format(total_assertion_time)
+output_text += 'Total Assertion time: {} seconds\n'.format(total_assertion_time)
 output_text += 'Total Solve time: {} seconds\n'.format(total_solve_time)
 output_text += 'Total clock time according to the script: {} seconds\n'.format(end_time - starting_time)
 
