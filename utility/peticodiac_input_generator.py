@@ -2,7 +2,7 @@
 
 import os, random, sys, time
 
-def random_operand(input_range=100, probability_of_zero=0.5):
+def random_operand(input_range=10, probability_of_zero=0.5):
     random_zero = random.random()
     if random_zero < probability_of_zero:
         float_operand = 0.0
@@ -18,7 +18,7 @@ def random_operand(input_range=100, probability_of_zero=0.5):
 
     return (float_operand, fraction_operand)
 
-def generate_constraint(input_range=100):
+def generate_constraint(input_range=10):
     float_row_output = 'c'
     fraction_row_output = 'c'
     for col in range(size):
@@ -28,7 +28,7 @@ def generate_constraint(input_range=100):
 
     return (float_row_output, fraction_row_output)
 
-def generate_bounds(input_range=100, bound_index=1):
+def generate_bounds(input_range=10, bound_index=1):
     float_row_bound = 'b'
     fraction_row_bound = 'b'
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     if not os.path.exists(generated_benchmark_dir):
         os.makedirs(generated_benchmark_dir, exist_ok=True)
 
-    size = 1
+    size = 5
     bound_index = size
 
     float_output = 'p cnf {} {}'.format(size, size)
@@ -98,7 +98,7 @@ if __name__ == '__main__':
     current_timestamp = int(time.time())
     print('#### Float output ####')
     print(float_output)
-    float_output_path = os.path.join(generated_benchmark_dir, 'QF_LRA_peticodiac_{}_float.smt2.peticodiac'.format(current_timestamp))
+    float_output_path = os.path.join(generated_benchmark_dir, 'QF_LRA_peticodiac_size_{}_{}_float.smt2.peticodiac'.format(size, current_timestamp))
     output_float_fh = open(float_output_path, 'w')
     output_float_fh.write(float_output)
     output_float_fh.close()
@@ -106,7 +106,7 @@ if __name__ == '__main__':
 
     print('\n#### Fraction output ####')
     print(fraction_output)
-    fraction_output_path = os.path.join(generated_benchmark_dir, 'QF_LRA_peticodiac_{}_fraction.smt2.peticodiac'.format(current_timestamp))
+    fraction_output_path = os.path.join(generated_benchmark_dir, 'QF_LRA_peticodiac_size_{}_{}_fraction.smt2.peticodiac'.format(size, current_timestamp))
     output_fraction_fh = open(fraction_output_path, 'w')
     output_fraction_fh.write(fraction_output)
     output_fraction_fh.close()

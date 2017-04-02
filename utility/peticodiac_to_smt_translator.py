@@ -62,6 +62,7 @@ def translate(src_file, dest_file):
 (set-info :source | Random generated input for experimentation with large scale input |)
 (set-info :smt-lib-version 2.0)
 (set-info :category "industrial")
+(set-option :produce-models true)
 '''
     declare_output = ''
     assert_output = '(assert '
@@ -96,7 +97,7 @@ def translate(src_file, dest_file):
 
     smt_output += declare_output
     smt_output += assert_output
-    smt_output += '(check-sat)\n(exit)\n'
+    smt_output += '(check-sat)\n(get-model)\n(exit)\n'
     return smt_output
 
 
