@@ -8,8 +8,8 @@ def random_operand(input_range=10, probability_of_zero=0.5):
         float_operand = 0.0
         fraction_operand = '0/1'
     else:
-        numerator = random.randint(-input_range * 5, input_range * 5)
-        denominator = random.randint(1, input_range)
+        numerator = random.randint(-input_range * 2, input_range * 2)
+        denominator = random.randint(1, input_range/2)
         float_operand = numerator/denominator
         if (numerator == 0):
             fraction_operand = '0/1'
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     if not os.path.exists(generated_benchmark_dir):
         os.makedirs(generated_benchmark_dir, exist_ok=True)
 
-    size = 5
+    size = 1000
     bound_index = size
 
     float_output = 'p cnf {} {}'.format(size, size)

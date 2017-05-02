@@ -60,7 +60,7 @@ Then checkout this repo, go to the `utility` directory and run `python run_smt_b
 
 
 ### Running Individual Tool
-Alternatively, we can also run individual script to analyze the benchmark, translate SMT2 language into the native peticodiac format, and invoke a specific solver.
+Alternatively, we can also run individual script to analyze the benchmark, translate between SMT2 language and the native peticodiac format, and invoke a specific solver.
 
 To run the benchmark analyzer, go to the utility directory, and run the Python script.
 This will take several minutes to process over 8000 files
@@ -74,6 +74,19 @@ To translate all the selected_benchmark SMT2 scripts to the native peticodiac fo
 cd utility
 python smt_translator.py
 ```
+
+To generate new peticodiac input (parameters can be adjusted in the code)
+```
+cd utility
+python peticodiac_input_generator.py
+```
+
+To translate the randomly generated peticodiac input back to the SMT2 format
+```
+cd utility
+python peticodiac_to_smt_translator.py
+```
+NOTE: this tool assumes that a randomly generated peticodiac input file exists. If not, please run the `peticodiac_input_generator.py` first
 
 To run the jSMTLIB-based translation tool on individual SMT2 script
 ```
